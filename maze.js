@@ -4,7 +4,7 @@
  *
  * Author: <brandon.blodget@gmail.com>
  *
- * Copyright 2011 Brandon Blodget.  
+ * Copyright 2011 Brandon Blodget.
  *
  * This script defines an API for drawing a
  * Micromouse maze and controlling a mouse
@@ -12,7 +12,7 @@
  * It requires an html5 capable web browser.
  *
  * License:
- * 
+ *
  * This file is part of "MicromouseSim"
  *
  * "MicromouseSim" is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with "MicromouseSim".  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -136,8 +136,8 @@ mouse.newMaze = function(ss_button,maze_sel) {
 
 
 	// default maze size is 16x16 cells
-	cWidth = 16;	
-	cHeight = 16;	
+	cWidth = 16;
+	cHeight = 16;
 
 	canvas = document.getElementById("maze");
 	ctx = canvas.getContext("2d");
@@ -162,9 +162,7 @@ mouse.newMaze = function(ss_button,maze_sel) {
 	}
 
 	mouse.loadMaze(maze_sel);
-};
-}
-
+}; }
 if (typeof mouse.fwd !== 'function') {
 mouse.fwd = function(cells) {
 	var num = cells || 1;
@@ -175,22 +173,22 @@ mouse.fwd = function(cells) {
 
 	for (i=0; i<num; i++) {
 		switch (mouseDir) {
-			case "N" : 
+			case "N" :
 				if (maze[cMouseY][cMouseX].indexOf("N") !== -1) {
 					cMouseY = cMouseY - 1;
 				}
 				break;
-			case "E" : 
+			case "E" :
 				if (maze[cMouseY][cMouseX].indexOf("E") !== -1) {
-					cMouseX = cMouseX + 1; 
+					cMouseX = cMouseX + 1;
 				}
 				break;
-			case "S" : 
+			case "S" :
 				if (maze[cMouseY][cMouseX].indexOf("S") !== -1) {
 					cMouseY = cMouseY + 1;
 				}
 				break;
-			case "W" : 
+			case "W" :
 				if (maze[cMouseY][cMouseX].indexOf("W") !== -1) {
 					cMouseX = cMouseX - 1;
 				}
@@ -205,9 +203,7 @@ mouse.fwd = function(cells) {
 	memMouseDir = mouseDir;
 	memUpdate();
 
-};
-}
-
+}; }
 if (typeof mouse.back !== 'function') {
 mouse.back = function(cells) {
 	var num = cells || 1;
@@ -218,22 +214,22 @@ mouse.back = function(cells) {
 
 	for (i=0; i<num; i++) {
 		switch (mouseDir) {
-			case "N" : 
+			case "N" :
 				if (maze[cMouseY][cMouseX].indexOf("S") !== -1) {
 					cMouseY = cMouseY + 1;
 				}
 				break;
-			case "E" : 
+			case "E" :
 				if (maze[cMouseY][cMouseX].indexOf("W") !== -1) {
-					cMouseX = cMouseX - 1; 
+					cMouseX = cMouseX - 1;
 				}
 				break;
-			case "S" : 
+			case "S" :
 				if (maze[cMouseY][cMouseX].indexOf("N") !== -1) {
 					cMouseY = cMouseY - 1;
 				}
 				break;
-			case "W" : 
+			case "W" :
 				if (maze[cMouseY][cMouseX].indexOf("E") !== -1) {
 					cMouseX = cMouseX + 1;
 				}
@@ -247,9 +243,7 @@ mouse.back = function(cells) {
 	memMouseY = cMouseY;
 	memMouseDir = mouseDir;
 	memUpdate();
-};
-}
-
+}; }
 if (typeof mouse.right !== 'function') {
 mouse.right = function(turns) {
 	var num = turns || 1;
@@ -263,13 +257,13 @@ mouse.right = function(turns) {
 
 	for (i=0; i<num; i++) {
 		switch (mouseDir) {
-			case "N" : 
+			case "N" :
 				mouseDir = "E"; break;
-			case "E" : 
+			case "E" :
 				mouseDir = "S"; break;
-			case "S" : 
+			case "S" :
 				mouseDir = "W"; break;
-			case "W" : 
+			case "W" :
 				mouseDir = "N"; break;
 		}
 	}
@@ -277,9 +271,7 @@ mouse.right = function(turns) {
 	memMouseX = cMouseX;
 	memMouseY = cMouseY;
 	memMouseDir = mouseDir;
-};
-}
-
+}; }
 if (typeof mouse.left !== 'function') {
 mouse.left = function(turns) {
 	var num = turns || 1;
@@ -293,13 +285,13 @@ mouse.left = function(turns) {
 
 	for (i=0; i<num; i++) {
 		switch (mouseDir) {
-			case "N" : 
+			case "N" :
 				mouseDir = "W"; break;
-			case "E" : 
+			case "E" :
 				mouseDir = "N"; break;
-			case "S" : 
+			case "S" :
 				mouseDir = "E"; break;
-			case "W" : 
+			case "W" :
 				mouseDir = "S"; break;
 		}
 	}
@@ -307,153 +299,135 @@ mouse.left = function(turns) {
 	memMouseX = cMouseX;
 	memMouseY = cMouseY;
 	memMouseDir = mouseDir;
-};
-}
-
+}; }
 if (typeof mouse.isPathLeft !== 'function') {
 mouse.isPathLeft = function() {
 	var goodDir = maze[cMouseY][cMouseX];
 
 		switch (mouseDir) {
-			case "N" : 
+			case "N" :
 				if (goodDir.indexOf("W") === -1) {
 					return false;
 				}
 				break;
-			case "E" : 
+			case "E" :
 				if (goodDir.indexOf("N") === -1) {
 					return false;
 				}
 				break;
-			case "S" : 
+			case "S" :
 				if (goodDir.indexOf("E") === -1) {
 					return false;
 				}
 				break;
-			case "W" : 
+			case "W" :
 				if (goodDir.indexOf("S") === -1) {
 					return false;
 				}
 				break;
 		}
 		return true;
-};
-}
-
+}; }
 if (typeof mouse.isWallLeft !== 'function') {
 mouse.isWallLeft = function() {
 	return !(mouse.isPathLeft());
-};
-}
-
+}; }
 if (typeof mouse.isPathRight !== 'function') {
 mouse.isPathRight = function() {
 	var goodDir = maze[cMouseY][cMouseX];
 
 		switch (mouseDir) {
-			case "N" : 
+			case "N" :
 				if (goodDir.indexOf("E") === -1) {
 					return false;
 				}
 				break;
-			case "E" : 
+			case "E" :
 				if (goodDir.indexOf("S") === -1) {
 					return false;
 				}
 				break;
-			case "S" : 
+			case "S" :
 				if (goodDir.indexOf("W") === -1) {
 					return false;
 				}
 				break;
-			case "W" : 
+			case "W" :
 				if (goodDir.indexOf("N") === -1) {
 					return false;
 				}
 				break;
 		}
 		return true;
-};
-}
-
+}; }
 if (typeof mouse.isWallRight !== 'function') {
 mouse.isWallRight = function() {
 	return !(mouse.isPathRight());
-};
-}
-
+}; }
 if (typeof mouse.isPathFwd !== 'function') {
 mouse.isPathFwd = function() {
 	var goodDir = maze[cMouseY][cMouseX];
 
 		switch (mouseDir) {
-			case "N" : 
+			case "N" :
 				if (goodDir.indexOf("N") === -1) {
 					return false;
 				}
 				break;
-			case "E" : 
+			case "E" :
 				if (goodDir.indexOf("E") === -1) {
 					return false;
 				}
 				break;
-			case "S" : 
+			case "S" :
 				if (goodDir.indexOf("S") === -1) {
 					return false;
 				}
 				break;
-			case "W" : 
+			case "W" :
 				if (goodDir.indexOf("W") === -1) {
 					return false;
 				}
 				break;
 		}
 		return true;
-};
-}
-
+}; }
 if (typeof mouse.isWallFwd !== 'function') {
 mouse.isWallFwd = function() {
 	return !(mouse.isPathFwd());
-};
-}
-
+}; }
 if (typeof mouse.isPathBack !== 'function') {
 mouse.isPathBack = function() {
 	var goodDir = maze[cMouseY][cMouseX];
 
 		switch (mouseDir) {
-			case "N" : 
+			case "N" :
 				if (goodDir.indexOf("S") === -1) {
 					return false;
 				}
 				break;
-			case "E" : 
+			case "E" :
 				if (goodDir.indexOf("W") === -1) {
 					return false;
 				}
 				break;
-			case "S" : 
+			case "S" :
 				if (goodDir.indexOf("N") === -1) {
 					return false;
 				}
 				break;
-			case "W" : 
+			case "W" :
 				if (goodDir.indexOf("E") === -1) {
 					return false;
 				}
 				break;
 		}
 		return true;
-};
-}
-
+}; }
 if (typeof mouse.isWallBack !== 'function') {
 mouse.isWallBack = function() {
 	return !(mouse.isPathBack());
-};
-}
-
+}; }
 if (typeof mouse.start !== 'function') {
 mouse.start = function() {
 	stepMode = false;
@@ -461,15 +435,11 @@ mouse.start = function() {
 		timer_id = setInterval(update,20);
 		setRunning(true);
 	}
-};
-}
-
+}; }
 if (typeof mouse.stop !== 'function') {
 mouse.stop = function() {
 	stepMode = true;
-};
-}
-
+}; }
 if (typeof mouse.step !== 'function') {
 mouse.step = function() {
 	stepMode = true;
@@ -477,16 +447,12 @@ mouse.step = function() {
 		timer_id = setInterval(update,20);
 		setRunning(true);
 	}
-};
-}
-
+}; }
 // number of moves made since last at home.
 if (typeof mouse.moveCount !== 'function') {
 mouse.moveCount = function() {
 	return moveCount;
-};
-}
-
+}; }
 // Resets mouse memory and returns it home.
 if (typeof mouse.reset !== 'function') {
 mouse.reset = function() {
@@ -497,9 +463,7 @@ mouse.reset = function() {
 
 	mouse.home();
 	mouse.memClear();
-};
-}
-
+}; }
 // Sets the mouses speed.
 // Indicates number of steps required to move
 // one cell.
@@ -509,9 +473,7 @@ mouse.setSpeed = function(speedp) {
 	speed = speedp;
 	incAmount = pCellWidth/speed;
 	turnAmount = 90/speed;
-};
-}
-
+}; }
 // returns true on success else false
 if (typeof mouse.loadDriver !== 'function') {
 mouse.loadDriver = function(driverp) {
@@ -533,9 +495,7 @@ mouse.loadDriver = function(driverp) {
 	} else {
 		return false;
 	}
-};
-}
-
+}; }
 if (typeof mouse.loadMaze !== 'function') {
 mouse.loadMaze = function(maze_selp) {
 	var maze_json = "mazes_json/" + maze_selp + ".json";
@@ -557,27 +517,19 @@ mouse.loadMaze = function(maze_selp) {
 	});
 
 
-};
-}
-
+}; }
 if (typeof mouse.x !== 'function') {
 mouse.x = function() {
 	return cMouseX;
-};
-}
-
+}; }
 if (typeof mouse.y !== 'function') {
 mouse.y = function() {
 	return cMouseY;
-};
-}
-
+}; }
 if (typeof mouse.heading !== 'function') {
 mouse.heading = function() {
 	return mouseDir;
-};
-}
-
+}; }
 if (typeof mouse.home !== 'function') {
 mouse.home = function() {
 	mouse.stop();
@@ -586,9 +538,7 @@ mouse.home = function() {
 	clearTimer();
 	drawMouse();
 	moveCount = 0;
-};
-}
-
+}; }
 if (typeof mouse.isHome !== 'function') {
 mouse.isHome = function() {
 	if (cMouseX === 0 &&
@@ -599,9 +549,7 @@ mouse.isHome = function() {
 	} else {
 		return false;
 	}
-};
-}
-
+}; }
 if (typeof mouse.isGoal !== 'function') {
 mouse.isGoal = function() {
    if ((cMouseX === 7 || cMouseX === 8) &&
@@ -611,8 +559,7 @@ mouse.isGoal = function() {
 	} else {
 		return false;
 	}
-};
-}
+}; }
 
 // Mouse memory functions
 
@@ -621,182 +568,136 @@ if (typeof mouse.memIsWallLeft !== 'function') {
 mouse.memIsWallLeft = function() {
 	var i = left2Index(memMouseDir);
 	return !(memMaze[memMouseY][memMouseX][dir]);
-};
-}
-
+}; }
 //memIsPathLeft(): Returns true if a wall to the left has not been remembered.
 if (typeof mouse.memIsPathLeft !== 'function') {
 mouse.memIsPathLeft = function() {
 	var i = left2Index(memMouseDir);
 	return memMaze[memMouseY][memMouseX][dir];
-};
-}
-
+}; }
 //memIsWallRight(): Returns true if a wall to the right has been remembered.
 if (typeof mouse.memIsWallRight !== 'function') {
 mouse.memIsWallRight = function() {
 	var i = right2Index(memMouseDir);
 	return !(memMaze[memMouseY][memMouseX][dir]);
-};
-}
-
+}; }
 //memIsPathRight(): Returns true if a wall to the right has not been remembered.
 if (typeof mouse.memIsPathRight !== 'function') {
 mouse.memIsPathRight = function() {
 	var i = right2Index(memMouseDir);
 	return memMaze[memMouseY][memMouseX][dir];
-};
-}
-
+}; }
 //memIsWallFwd(): Returns true if a wall to the forward has been remembered.
 if (typeof mouse.memIsWallFwd !== 'function') {
 mouse.memIsWallFwd = function() {
 	var i = fwd2Index(memMouseDir);
 	return !(memMaze[memMouseY][memMouseX][dir]);
-};
-}
-
+}; }
 //memIsPathFwd(): Returns true if a wall to the forward has not been remembered.
 if (typeof mouse.memIsPathFwd !== 'function') {
 mouse.memIsPathFwd = function() {
 	var i = fwd2Index(memMouseDir);
 	return memMaze[memMouseY][memMouseX][dir];
-};
-}
-
+}; }
 //memIsWallBack(): Returns true if a wall to the back has been remembered.
 if (typeof mouse.memIsWallBack !== 'function') {
 mouse.memIsWallBack = function() {
 	var i = back2Index(memMouseDir);
 	return !(memMaze[memMouseY][memMouseX][dir]);
-};
-}
-
+}; }
 //memIsPathBack(): Returns true if a wall to the back has not been remembered.
 if (typeof mouse.memIsPathBack !== 'function') {
 mouse.memIsPathBack = function() {
 	var i = back2Index(memMouseDir);
 	return memMaze[memMouseY][memMouseX][dir];
-};
-}
-
+}; }
 //memSetData(data): Store data in the current cell.
 if (typeof mouse.memSetData !== 'function') {
 mouse.memSetData = function(data) {
 	memMaze[memMouseY][memMouseX][DATA] = data;
-};
-}
-
+}; }
 //memSetDataLeft(data): Store data in the left cell.
 if (typeof mouse.memSetDataLeft !== 'function') {
 mouse.memSetDataLeft = function(data) {
 	var off = left2Offset(memMouseDir);
 	memMaze[memMouseY+off.y][memMouseX+off.x][DATA] = data;
-};
-}
-
+}; }
 //memSetDataRight(data): Store data in the right cell.
 if (typeof mouse.memSetDataRight !== 'function') {
 mouse.memSetDataRight = function(data) {
 	var off = right2Offset(memMouseDir);
 	memMaze[memMouseY+off.y][memMouseX+off.x][DATA] = data;
-};
-}
-
+}; }
 //memSetDataFwd(data): Store data in the forward cell.
 if (typeof mouse.memSetDataFwd !== 'function') {
 mouse.memSetDataFwd = function(data) {
 	var off = fwd2Offset(memMouseDir);
 	memMaze[memMouseY+off.y][memMouseX+off.x][DATA] = data;
-};
-}
-
+}; }
 //memSetDataBack(data): Store data in the back cell.
 if (typeof mouse.memSetDataBack !== 'function') {
 mouse.memSetDataBack = function(data) {
 	var off = back2Offset(memMouseDir);
 	memMaze[memMouseY+off.y][memMouseX+off.x][DATA] = data;
-};
-}
-
+}; }
 //memGetData(): Returns the data stored in the current cell.
 if (typeof mouse.memGetData !== 'function') {
 mouse.memGetData = function() {
 	return memMaze[memMouseY][memMouseX][DATA];
-};
-}
-
+}; }
 //memGetDataLeft(): Returns the value for the left cell.
 if (typeof mouse.memGetDataLeft !== 'function') {
 mouse.memGetDataLeft = function() {
 	var off = left2Offset(memMouseDir);
 	return memMaze[memMouseY+off.y][memMouseX+off.x][DATA];
-};
-}
-
+}; }
 //memGetDataRight(): Returns the value for the right cell.
 if (typeof mouse.memGetDataRight !== 'function') {
 mouse.memGetDataRight = function() {
 	var off = right2Offset(memMouseDir);
 	return memMaze[memMouseY+off.y][memMouseX+off.x][DATA];
-};
-}
-
+}; }
 //memGetDataFwd(): Returns the value for the cell in front.
 if (typeof mouse.memGetDataFwd !== 'function') {
 mouse.memGetDataFwd = function() {
 	var off = fwd2Offset(memMouseDir);
 	return memMaze[memMouseY+off.y][memMouseX+off.x][DATA];
-};
-}
-
+}; }
 //memGetDataBack(): Returns the value for the cell in back.
 if (typeof mouse.memGetDataBack !== 'function') {
 mouse.memGetDataBack = function() {
 	var off = back2Offset(memMouseDir);
 	return memMaze[memMouseY+off.y][memMouseX+off.x][DATA];
-};
-}
-
+}; }
 //memGetVisited(): Returns true if the current memory has been visited.
 if (typeof mouse.memGetVisited !== 'function') {
 mouse.memGetVisited = function() {
 	return memMaze[memMouseY][memMouseX][VISIT];
-};
-}
-
+}; }
 //memGetVisitedLeft(): Returns true if the left cell has been visited.
 if (typeof mouse.memGetVisitedLeft !== 'function') {
 mouse.memGetVisitedLeft = function() {
 	var off = left2Offset(memMouseDir);
 	return memMaze[memMouseY+off.y][memMouseX+off.x][VISIT];
-};
-}
-
+}; }
 //memGetVisitedRight(): Returns true if the right cell has been visited.
 if (typeof mouse.memGetVisitedRight !== 'function') {
 mouse.memGetVisitedRight = function() {
 	var off = right2Offset(memMouseDir);
 	return memMaze[memMouseY+off.y][memMouseX+off.x][VISIT];
-};
-}
-
+}; }
 //memGetVisitedFwd(): Returns true if the forward cell has been visited.
 if (typeof mouse.memGetVisitedFwd !== 'function') {
 mouse.memGetVisitedFwd = function() {
 	var off = fwd2Offset(memMouseDir);
 	return memMaze[memMouseY+off.y][memMouseX+off.x][VISIT];
-};
-}
-
+}; }
 //memGetVisitedBack(): Returns true if the back cell has been visited.
 if (typeof mouse.memGetVisitedBack !== 'function') {
 mouse.memGetVisitedBack = function() {
 	var off = back2Offset(memMouseDir);
 	return memMaze[memMouseY+off.y][memMouseX+off.x][VISIT];
-};
-}
-
+}; }
 //memClear(): Clears everything from the mouse memory.
 if (typeof mouse.memClear !== 'function') {
 mouse.memClear = function() {
@@ -809,22 +710,22 @@ mouse.memClear = function() {
 			memMaze[y][x] = [];
 			if (y===0) {
 				memMaze[y][x][NORTH] = false;  // wall north
-			} else { 
+			} else {
 				memMaze[y][x][NORTH] = true;
 			}
 			if (y===cHeight-1) {
 				memMaze[y][x][SOUTH] = false; // wall south
-			} else { 
+			} else {
 				memMaze[y][x][SOUTH] = true;
 			}
 			if (x===0) {
 				memMaze[y][x][WEST] = false; // wall west
-			} else { 
+			} else {
 				memMaze[y][x][WEST] = true;
 			}
 			if (x===cWidth-1) {
 				memMaze[y][x][EAST] = false; // wall east
-			} else { 
+			} else {
 				memMaze[y][x][EAST] = true;
 			}
 			memMaze[y][x][VISIT] = false;
@@ -833,9 +734,7 @@ mouse.memClear = function() {
 	}
 	// We should look at and record the cell we are in.
 	memUpdate();
-};
-}
-
+}; }
 //memPerfect(): Get a perfect memory of the maze.
 if (typeof mouse.memPerfect !== 'function') {
 mouse.memPerfect = function() {
@@ -848,25 +747,25 @@ mouse.memPerfect = function() {
 			memMaze[y][x] = [];
 			if (y===0) {
 				memMaze[y][x][NORTH] = false;  // wall north
-			} else { 
+			} else {
 				//memMaze[y][x][NORTH] = true;
 				memMaze[y][x][NORTH] = (maze[y][x].indexOf("N") !== -1);
 			}
 			if (y===cHeight-1) {
 				memMaze[y][x][SOUTH] = false; // wall south
-			} else { 
+			} else {
 				//memMaze[y][x][SOUTH] = true;
 				memMaze[y][x][SOUTH] = (maze[y][x].indexOf("S") !== -1);
 			}
 			if (x===0) {
 				memMaze[y][x][WEST] = false; // wall west
-			} else { 
+			} else {
 				//memMaze[y][x][WEST] = true;
 				memMaze[y][x][WEST] = (maze[y][x].indexOf("W") !== -1);
 			}
 			if (x===cWidth-1) {
 				memMaze[y][x][EAST] = false; // wall east
-			} else { 
+			} else {
 				//memMaze[y][x][EAST] = true;
 				memMaze[y][x][EAST] = (maze[y][x].indexOf("E") !== -1);
 			}
@@ -874,22 +773,16 @@ mouse.memPerfect = function() {
 			memMaze[y][x][DATA] = 0;
 		}
 	}
-};
-}
-
+}; }
 //memSetPosAt(x,y,heading):
 if (typeof mouse.memSetPosAt !== 'function') {
 mouse.memSetPosAt = function(x,y,heading) {
 	memMouseX = x;
 	memMouseY = y;
 	memMouseDir = heading;
-};
-}
-
-
-
-//memFlood(rev): Uses the walls in the mouse's memory to calculate 
-//how far each cell is from a destination square. 
+}; }
+//memFlood(rev): Uses the walls in the mouse's memory to calculate
+//how far each cell is from a destination square.
 //The distances are stored in the cells value.
 //when goGoal==true then goal squares are the destination
 //when goGoal==false then home square is the destination
@@ -907,7 +800,7 @@ mouse.memFlood = function(goGoalp) {
 
 	if (goGoalp === undefined) {
 		goGoal = true;  // the default
-	} 
+	}
 
 	// Set all data values to 255.
 	for (y=0;y<cHeight;y++) {
@@ -955,9 +848,7 @@ mouse.memFlood = function(goGoalp) {
 		}
 	}
 
-};
-}
-
+}; }
 // print the content of the mouse data memory.
 if (typeof mouse.memPrintData !== 'function') {
 mouse.memPrintData = function() {
@@ -981,9 +872,7 @@ mouse.memPrintData = function() {
 		str = str + "\n";
 	}
 	console.log(str);
-};
-}
-
+}; }
 // print the maze in the mouse's memory.
 if (typeof mouse.memPrintMaze !== 'function') {
 mouse.memPrintMaze = function() {
@@ -1017,15 +906,12 @@ mouse.memPrintMaze = function() {
 	}
 	str += "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n";
 	console.log(str);
-};
-}
-
+}; }
 /*
  ****************************************************
  * Private Functions
  ****************************************************
  */
-
 function drawMaze() {
 	var x;
 	var y;
@@ -1088,11 +974,9 @@ function drawMaze() {
 		}
 	}
 }
-
 function rads(degrees) {
 	return (Math.PI/180)*degrees;
 }
-
 function eraseMouse() {
 	var px, py;
 
@@ -1104,8 +988,6 @@ function eraseMouse() {
 	//ctx.stroke();
 
 }
-
-
 function drawMouse() {
 	var r;	// radius
 
@@ -1125,14 +1007,12 @@ function drawMouse() {
 	ctx.strokeStyle = "#000";
 	ctx.stroke();
 }
-
 function clearTimer() {
 	if (running && timer_id) {
 		clearInterval(timer_id);
 		setRunning(false);
 	}
 }
-
 function setRunning(isRunning) {
 	if (isRunning) {
 		running = true;
@@ -1143,7 +1023,6 @@ function setRunning(isRunning) {
 		ssButton.html('Start');
 	}
 }
-
 function update() {
 	var dirDiff;
 	var xDiff;
@@ -1213,15 +1092,12 @@ function update() {
 
 	drawMouse();
 }
-
 function cell2px() {
 	return ((cMouseX * pCellWidth) + (pCellWidth/2));
 }
-
 function cell2py() {
 	return ((cMouseY * pCellHeight) + (pCellHeight/2));
 }
-
 function head2angle() {
 	switch(mouseDir) {
 		case "N" : return -90;
@@ -1231,7 +1107,6 @@ function head2angle() {
 	}
 	return 0;
 }
-
 /* Home position is the lower left cell.
  * This cell is (0,15)
  */
@@ -1251,7 +1126,6 @@ function setHomePosition() {
 	memMouseY = cMouseY;
 	memMouseDir = mouseDir;
 }
-
 // update the mouses memory of this cell.
 function memUpdate() {
 	var cell = memMaze[memMouseY][memMouseX];
@@ -1344,7 +1218,6 @@ function memUpdate() {
 	 */
 
 }
-
 function left2Index(heading) {
 	switch(heading) {
 		case "N" : return WEST;
@@ -1353,7 +1226,6 @@ function left2Index(heading) {
 		case "W" : return SOUTH;
 	}
 }
-
 function right2Index(heading) {
 	switch(heading) {
 		case "N" : return EAST;
@@ -1362,7 +1234,6 @@ function right2Index(heading) {
 		case "W" : return NORTH;
 	}
 }
-
 function fwd2Index(heading) {
 	switch(heading) {
 		case "N" : return NORTH;
@@ -1371,7 +1242,6 @@ function fwd2Index(heading) {
 		case "W" : return WEST;
 	}
 }
-
 function back2Index(heading) {
 	switch(heading) {
 		case "N" : return SOUTH;
@@ -1380,7 +1250,6 @@ function back2Index(heading) {
 		case "W" : return EAST;
 	}
 }
-
 function left2Offset(heading) {
 	var off = {};
 	off.x = 0;
@@ -1393,7 +1262,6 @@ function left2Offset(heading) {
 	}
 	return off;
 }
-
 function right2Offset(heading) {
 	var off = {};
 	off.x = 0;
@@ -1406,7 +1274,6 @@ function right2Offset(heading) {
 	}
 	return off;
 }
-
 function fwd2Offset(heading) {
 	var off = {};
 	off.x = 0;
@@ -1419,7 +1286,6 @@ function fwd2Offset(heading) {
 	}
 	return off;
 }
-
 function back2Offset(heading) {
 	var off = {};
 	off.x = 0;
@@ -1432,12 +1298,9 @@ function back2Offset(heading) {
 	}
 	return off;
 }
-
 // constructs a Cell object.
 function Cell(x,y) {
 	return {"x":x,"y":y};
 }
 
 }());
-
-
