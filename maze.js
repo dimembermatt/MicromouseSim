@@ -1034,7 +1034,13 @@ function update() {
 		pMouseY === tpMouseY &&
 		aMouseDir === taMouseDir) {
 
-		driver.next();
+		if (mouse.isGoal() && driver.goGoal) {
+			mouse.stop();
+			alert("Center Reached! Moves: "+mouse.moveCount());
+		}else{
+			driver.next();
+			drawMaze();
+		}
 
 		if (stepMode) {
 			clearTimer();

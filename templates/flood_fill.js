@@ -62,7 +62,6 @@ driver.next = function() {
         }
     }
 
-
     switch (ldir) {
         case "F" :
             mouse.fwd();
@@ -80,7 +79,4 @@ driver.next = function() {
             mouse.fwd();
             break;
     }
-
 }
-
-

@@ -1,9 +1,8 @@
 <html>
-
 <head>
 	<title>Micromouse Simulator</title>
 
-	<link type="text/css" href="jquery-ui-1.8.12.custom.css" rel="stylesheet" />	
+	<link type="text/css" href="jquery-ui-1.8.12.custom.css" rel="stylesheet" />
 	<link rel="stylesheet" href="main.css" type="text/css">
 
 	<script type="text/javascript">
@@ -135,11 +134,12 @@ Speed <div id="slider"></div>
 <select name="driver_sel" id="driver_sel">
   <option value="right_wall">Right Wall Follower</option>
   <option value="left_wall">Left Wall Follower</option>
-  <option value="flood_fill" selected="selected">Flood Fill</option>
+  <option value="flood_fill">Flood Fill</option>
+  <option value="tremaux_alg_v1" selected="selected">Tremaux (UT RAS MM)</option>
 </select>
 </div>
 
-<textarea id="driver_code" rows=30> 
+<textarea id="driver_code" rows=30>
 </textarea>
 
 <div id="code_controls_div">
@@ -159,6 +159,10 @@ Speed <div id="slider"></div>
 <script type="text/javascript" src="jquery-1.5.2.min.js"></script>
 <script type="text/javascript" src="jquery-ui-1.8.12.custom.min.js"></script>
 <script type="text/javascript" src="maze.js"></script>
+<script type="text/javascript" src="Classes/Mmouse.js"></script>
+<script type="text/javascript" src="Classes/m_Neighbor.js"></script>
+<script type="text/javascript" src="Classes/m_Node.js"></script>
+
 
 <script type="text/javascript">
 jQuery(function() {
@@ -221,7 +225,7 @@ jQuery(function() {
 
 	$('#driver_sel').change(
 		function(event) {
-			var template_file = "templates/" + 
+			var template_file = "templates/" +
 				$('#driver_sel option:selected').val() + ".js";
 			/* This code is not working in Firefox 4
 			 * does not update textarea if textarea has been modified.
@@ -231,7 +235,7 @@ jQuery(function() {
 			$.get(template_file, function(data) {
 			  $('#driver_code').val(data);
 			},"html");
-			
+
 
 			// mouse.loadDriver(driver);
 			//$("#download").html("*Download and Reset Mouse");
@@ -251,7 +255,7 @@ jQuery(function() {
 	});
 	*/
 	$('#slider').slider({
-		min:1, 
+		min:1,
 		max:12,
 		value: 6,
 		slide: function(event, info) {
@@ -270,7 +274,7 @@ jQuery(function() {
 	$("#reset").attr("disabled","disabled");
 
 	// load driver code from template
-	var template_file = "templates/" + 
+	var template_file = "templates/" +
 		$('#driver_sel option:selected').val() + ".js";
 	$('#driver_code').load(template_file);
 
@@ -293,4 +297,3 @@ jQuery(function() {
 
 
 </html>
-

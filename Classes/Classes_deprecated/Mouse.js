@@ -1,13 +1,13 @@
 /**
- * Mouse.js
+ * mmouse.js
  * Author: Matthew Yu
  * Last modified: 10/24/18
  *
- * This file describes the Mouse class and the functions that it uses.
+ * This file describes the mmouse class and the functions that it uses.
  * This class is dependent on the following classes and their source files:
  *      @class Node m_Node.js
  *      @class Neighbor m_Neighbor.js
- * This class also calls the methods available from the Mouse API
+ * This class also calls the methods available from the mmouse API
  * from the MicromouseSimulator.
  * https://github.com/bblodget/MicromouseSim/wiki/Mouse-API
  */
@@ -28,26 +28,26 @@ mmouse.getPosition = function() {
     return position;
 }; }
 /**
- *  @function findDir - determines the direction the mouse should travel after
+ *  @function findDir - determines the direction the mmouse should travel after
  *     reaching a junction
  *  @param pos : int[2]
- *     (x,y) coordinates of the mouse.
+ *     (x,y) coordinates of the mmouse.
  *  @param dir : int
- *     absolute direction the mouse entered the current junction from.
+ *     absolute direction the mmouse entered the current junction from.
  *     0=N, 1=E, 2=S, 3=W
  *  @return int
- *     direction mouse should now go (0=N, 1=E, 2=S, 3=W)
+ *     direction mmouse should now go (0=N, 1=E, 2=S, 3=W)
  */
 if (typeof mmouse.findDir !== 'function') {
 mmouse.findDir = function(pos, dir) {
-    let cell[2][5];
+    let cell = [...Array(5)].map(e => Array(2).fill(value));
     //find directions with open walls
     cell[0] = getCellType();    //only access first 4 entries since 5th is no of open walls
     //determine HammingDist of each direction
-    for(int i = 0; i < 4; i++){
+    for(let i = 0; i < 4; i++){
         //if direction has no wall
         if(cell[0][i] == 1){
-            //if direction is not from where the mouse came from
+            //if direction is not from where the mmouse came from
             if(dir != i)
                 cell[1][i] = findHammingDist(pos, i);
         //if direction has wall
@@ -57,19 +57,19 @@ mmouse.findDir = function(pos, dir) {
     }
     //choose direction with neighbor cell with smallest Hamming dist to center
     let bestDir = 0;
-    for(int i = 0; i < 4; i++){
+    for(let i = 0; i < 4; i++){
         if (cell[1][i] < cell[1][bestDir])
             bestDir = i;
     }
 
     return bestDir;
-};
+}; }
 /**
- *  @function movePath - directs a mouse along a corridor until it reaches a junction.
+ *  @function movePath - directs a mmouse along a corridor until it reaches a junction.
  *  @param pos : int[2]
- *     (x,y) coordinates of the mouse before it starts moving.
+ *     (x,y) coordinates of the mmouse before it starts moving.
  *  @param dir :int
- *     absolute direction the mouse leaves from the current junction
+ *     absolute direction the mmouse leaves from the current junction
  *  @return int[2], where [0] = int[2]
  *     location - [newPos, moveDist, directionEntered]
  */
@@ -80,14 +80,14 @@ mmouse.movePath = function(pos, dir) {
     let cell;
     let deadEnd = false;
 
-    //hardware driver funct - move the mouse an arbitrary distance (1 cell)
+    //hardware driver funct - move the mmouse an arbitrary distance (1 cell)
     //in the activeDirection
 
     //go one cell into the corridoor.
     moveMouse(activeDir);
 
     //hardware driver funct - use onboard IR sensors to determine which directions are open
-    //requires the mouse absolute direction and returns a struct containing the
+    //requires the mmouse absolute direction and returns a struct containing the
     //status of each direction (wall or not) and the number of directions open
     cell = getCellType();
     //while cell is a dead end or corridor
@@ -104,7 +104,7 @@ mmouse.movePath = function(pos, dir) {
                     cell[activeDir-2] = 0;
                 }
                 //change active direction based on what side is open
-                for(int i = 0; i < 4; i++){
+                for(let i = 0; i < 4; i++){
                     if(cell[i] == 1){
                         activeDir = i;
                     }
@@ -151,41 +151,41 @@ mmouse.movePath = function(pos, dir) {
 
 //private functions
 /**
-  *  @function moveMouse - move the mouse an arbitrary distance (1 cell)
+  *  @function moveMouse - move the mmouse an arbitrary distance (1 cell)
   *      in a given absolute direction
   *  @param activeDir : int
   *     direction to move towards.
   */
 function moveMouse(activeDir){
-     let facing = mouse.heading();
+     let facing = mmouse.heading();
      switch(facing){
          case 'N':
              break;
          case 'E':
-             mouse.left();
+             mmouse.left();
              break;
          case 'S':
-             mouse.left(2);
+             mmouse.left(2);
              break;
          case 'W':
-             mouse.right(1);
+             mmouse.right(1);
              break;
      }
      switch(activeDir){
          case 0: //N
-             mouse.fwd();
+             mmouse.fwd();
              break;
          case 1: //E
-             mouse.right();
-             mouse.fwd();
+             mmouse.right();
+             mmouse.fwd();
              break;
          case 2: //S
-             mouse.right(2);
-             mouse.fwd();
+             mmouse.right(2);
+             mmouse.fwd();
              break;
          case 3: //W
-             mouse.left();
-             mouse.fwd();
+             mmouse.left();
+             mmouse.fwd();
              break;
      }
  }
@@ -197,19 +197,19 @@ function moveMouse(activeDir){
   *      and 1 = no wall, 0 = wall; 5th index is the no. of open walls
   */
 function getCellType(){
-      let cell = {0, 0, 0, 0, 0};
-      let facing = mouse.heading();
+      let cell = [0, 0, 0, 0, 0];
+      let facing = mmouse.heading();
       switch(facing){
           case 'N':
               break;
           case 'E':
-              mouse.left();
+              mmouse.left();
               break;
           case 'S':
-              mouse.left(2);
+              mmouse.left(2);
               break;
           case 'W':
-              mouse.right(1);
+              mmouse.right(1);
               break;
       }
       if(mouse.isPathFwd()){
@@ -234,7 +234,7 @@ function getCellType(){
    *  @function findHammingDist - given a position and direction to move towards,
    *     findHammingDist finds the distance to the center of the field.
    *  @param pos : int[2]
-   *     (X, Y) coordinate of the mouse.
+   *     (X, Y) coordinate of the mmouse.
    *  @param dir : int
    *     direction of possible travel. 0=N, 1=E, 2=S, 3=W
    */

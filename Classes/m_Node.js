@@ -15,65 +15,49 @@
  * @param _neighbors - north, east, south, west: Neighbor objects.
  *     default neighbor objects are null (unexplored).
  */
-var ode;
-if (!node){
-    node = {};
-}
-
-//start closure
-(function (){
-//Global variables to this closure
-var id;
-var position;
-var neighbors;
-//public API functions
-/**
- * @function initializeNode - sets the node with an id, position, neighbors
- */
-if (typeof node.initializeNode !== 'function') {
-node.initializeNode = function(_id = 0, _position = [0,0], _neighbors = [null, null, null, null]) {
-    id = _id;
-    position = _position;
-    neighbors = _neighbors;
-}; }
-if (typeof node.getID !== 'function') {
-node.getID = function() {
-    return id;
-}; }
-if (typeof node.getPosition !== 'function') {
-node.getPosition = function() {
-    return position;
-}; }
-if (typeof node.getNeighbors !== 'function') {
-node.getNeighbors = function() {
-    return neighbors;
-}; }
-
-/**
- *  @function addRelation - given the previous and newly reached node,
- *     adjust the node to add connections or prune the wall.
- *  @param prevNode (implicit) : Node
- *     the previous Node that the mouse was just at.
- *     NOTE: call this function like prevNode.addRelation(currNode, ...)
- *  @param currNode : Node
- *     the node that the mouse has currently reached
- *  @param dirLeft : int
- *     the direction that the mouse left from the previous node.
- *  @param dirEntered : int
- *     the direction that the mouse entered into the current node.
- *  @param mvDist : int
- *     the distance between the two nodes in travel displacement
- */
-if (typeof node.addRelation !== 'function') {
-node.addRelation = function(currNode, dirLeft, dirEntered, mvDist) {
-    if(id == currNode.id){
-        neighbors[dirLeft].setNeighborPath(0);
-        neighbors[dirEntered].setNeighborPath(0);
-    }else{
-        neighbors[dirLeft].setNeighborId(currNode.id);
-        neighbors[dirLeft].setNeighborDist(mvDist);
-        currNode.neighbors[dirEntered].setNeighborId(prevNode.id);
-        currNode.neighbors[dirEntered].setNeighborDist(mvDst);
+class Node{
+    constructor(id = 0, position = [15, 0], neighbors = [new Neighbor(), new Neighbor(), new Neighbor(), new Neighbor()]){
+        this.id = id;
+        this.position = position;
+        this.neighbors = neighbors;
     }
-}; }
-}());
+    getID(){
+        return this.id;
+    }
+    getPosition(){
+        return this.position;
+    }
+    getNeighbors(){
+        return this.neighbors;
+    }
+    /**
+     *  @function addRelation - given the previous and newly reached node,
+     *     adjust the node to add connections or prune the wall.
+     *  @param prevNode (implicit) : Node
+     *     the previous Node that the mouse was just at.
+     *     NOTE: call this function like prevNode.addRelation(currNode, ...)
+     *  @param currNode : Node
+     *     the node that the mouse has currently reached
+     *  @param dirLeft : int
+     *     the direction that the mouse left from the previous node.
+     *  @param dirEntered : int
+     *     the direction that the mouse entered into the current node.
+     *  @param mvDist : int
+     *     the distance between the two nodes in travel displacement
+     */
+    addRelation(currNode, dirLeft, dirEntered, mvDist){
+        if(this.id == currNode.id){
+            //default pathBool is open, set to closed (0) if return to node
+            this.neighbors[dirLeft].setNeighborPath(0);
+            this.neighbors[dirEntered].setNeighborPath(0);
+        }else{
+            this.neighbors[dirLeft].setNeighborId(currNode.id);
+            this.neighbors[dirLeft].setNeighborDist(mvDist);
+            currNode.neighbors[dirEntered].setNeighborId(this.id);
+            currNode.neighbors[dirEntered].setNeighborDist(mvDist);
+            //set path to previously visited
+            this.neighbors[dirLeft].setNeighborPath(1);
+            currNode.neighbors[dirEntered].setNeighborPath(1);
+        }
+    }
+}

@@ -9,54 +9,31 @@
   * @class neighbor: the relationship between two nodes.
   * @param _id - id number of the connected node.
   * @param _pathBool - whether or not a path exists to a node.
-  *     1 = no wall, 0 = wall
+  *     1 = no wall, 0 = wall, -1 = unexplored
   * @param _distance - the distance between nodes (in unit hamming distance cells).
   */
-var neighbor;
-if (!neighbor){
-  neighbor = {};
+class Neighbor{
+    constructor(id = 0, pathBool = -1, distance = 0){
+        this.id = id;
+        this.pathBool = pathBool;
+        this.distance = distance;
+    }
+    getNeighborId(){
+        return this.id;
+    }
+    getAccessible(){
+        return this.pathBool;
+    }
+    getDistance(){
+        return this.distance;
+    }
+    setNeighborId(id){
+        this.id = id;
+    }
+    setNeighborPath(pathBool){
+        this.pathBool = pathBool;
+    }
+    setNeighborDist(distance){
+        this.distance = distance;
+    }
 }
-
-//start closure
-(function (){
-//Global variables to this closure
-var id;
-var pathBool;
-var distance;
-//public API functions
-/**
- * @function initializeNode - sets the node with an id, position, neighbors
- */
-if (typeof neighbor.initializeNode !== 'function') {
-neighbor.initializeNode = function(_id = 0, _pathBool = 0, _distance = 0) {
-    id = _id;
-    pathBool = _pathBool;
-    distance = _distance;
-}; }
-
-if (typeof neighbor.getNeighborId !== 'function') {
-neighbor.getNeighborId = function() {
-    return id;
-}; }
-if (typeof neighbor.getAccessible !== 'function') {
-neighbor.getAccessible = function() {
-    return pathBool;
-}; }
-if (typeof neighbor.getDistance !== 'function') {
-neighbor.getDistance = function() {
-    return distance;
-}; }
-
-if (typeof neighbor.setNeighborId !== 'function') {
-neighbor.setNeighborId = function(_id) {
-    id = _id;
-}; }
-if (typeof neighbor.setNeighborPath !== 'function') {
-neighbor.setNeighborPath = function(_pathBool) {
-    pathBool = _pathBool;
-}; }
-if (typeof neighbor.setNeighborDist !== 'funciton') {
-neighbor.setNeighborDist = function(_distance) {
-    distance = _distance;
-}; }
-}());
